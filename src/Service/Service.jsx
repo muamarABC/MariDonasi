@@ -13,7 +13,7 @@ const Service = () => {
                     <motion.div 
                     whileHover={{scale: 1.1}}
                     className="service_item" style={{background: `${item.bg}`}}>
-                        <span><i class={item.icon}></i></span>
+                        <span><i className={item.icon}></i></span>
                     <div>
                         <h3>{item.title}</h3>
                         <p>{item.subtitle}</p>

@@ -67,7 +67,7 @@ const donasi = () => {
                                 placeholder="Cari..."
                                 onChange={hanldeSearch}
                                 />
-                                <span><i class="ri-search-eye-line"></i></span> 
+                                <span><i className="ri-search-eye-line"></i></span> 
                             </div>
                         </Col>
                     </Row>
