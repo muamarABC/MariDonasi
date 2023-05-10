@@ -7,7 +7,6 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import Service from "../Service/Service";
 import DonasiList from "../componen/UI/DonasiList";
-// import Donasii from "../assets/data/DataDonasi"
 import useGetData from "../custom-hooks/useGetData";
 
 const Home = () => {

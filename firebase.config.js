@@ -16,12 +16,18 @@ const firebaseConfig = {
     // storageBucket: "miniproject-f2fae.appspot.com",
     // messagingSenderId: "320558627053",
     // appId: "1:320558627053:web:e9a186d2d374a7b756b4e4"
-    apiKey: "AIzaSyCknFDcCarhFc_IICsN3uGM7SRHvz95xCc",
-    authDomain: "miniproject-aea72.firebaseapp.com",
-    projectId: "miniproject-aea72",
-    storageBucket: "miniproject-aea72.appspot.com",
-    messagingSenderId: "137753644173",
-    appId: "1:137753644173:web:dc329240b89cc30fafe6c4"
+    // apiKey: "AIzaSyCknFDcCarhFc_IICsN3uGM7SRHvz95xCc",
+    // authDomain: "miniproject-aea72.firebaseapp.com",
+    // projectId: "miniproject-aea72",
+    // storageBucket: "miniproject-aea72.appspot.com",
+    // messagingSenderId: "137753644173",
+    // appId: "1:137753644173:web:dc329240b89cc30fafe6c4"
+    apiKey: "AIzaSyAIwAPIjWlWKRVJI5hjrLe-wAfvCNYJNdY",
+    authDomain: "miniproject-2609f.firebaseapp.com",
+    projectId: "miniproject-2609f",
+    storageBucket: "miniproject-2609f.appspot.com",
+    messagingSenderId: "1055786505829",
+    appId: "1:1055786505829:web:45170bcce01ac65798188c"
 };
 
 // Initialize Firebase
