@@ -29,24 +29,11 @@ const nav_link = [
 ]
 
 const Header = () => {
-    const headerRef = useRef(null)
-    const menuRef = useRef(null)
+    const headerRef = useRef(null);
+    const menuRef = useRef(null);
     const navigate = useNavigate();
     const {currentUser} = useAuth();
-    const profileActionRef = useRef()
-
-    const stickyHeaderFunc = () => {
-        window.addEventListener("scroll", () => {
-            if(
-                document.body.scrollTop > 80 ||
-                document.documentElement.scrollTop > 80
-            ){
-                headerRef.current.classList.add("sticky_header");
-            }else{
-                headerRef.current.classList.remove("sticky_header");
-            }
-        })
-    };
+    const profileActionRef = useRef();
 
     const logout = () =>{
         signOut(auth).then(() => {
@@ -55,12 +42,7 @@ const Header = () => {
         }).catch(err => {
             toast.error(err.massage)
         })
-    }
-
-    useEffect(()=> {
-        stickyHeaderFunc();
-        return() => window.removeEventListener("scroll", stickyHeaderFunc);
-    });
+    };
 
     const menuToggle = () => menuRef.current.classList.toggle("active_menu");
 
