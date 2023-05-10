@@ -72,7 +72,7 @@ const Header = () => {
             <Row>
                 <div className="nav_wrapper">
                     <div className="logo">
-                        <img src={logo} alt="logo"/>
+                        {/* <img src={logo} alt="logo"/> */}
                         <div>
                             <h1>MariDonasi</h1>
                         </div>
