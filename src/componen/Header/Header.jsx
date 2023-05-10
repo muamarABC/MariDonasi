@@ -8,7 +8,7 @@ import useAuth from "../../custom-hooks/useAuth";
 import { motion } from "framer-motion";
 import { auth } from "../../../firebase.config";
 import { toast } from "react-toastify";
-import logo from '../../assets/images/logo.png'
+import logo from '../../assets/images/logo.png';
 
 const nav_link = [
     {
