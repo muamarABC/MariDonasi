@@ -49,7 +49,7 @@ export default function () {
             });
 
             //store user data
-          await setDoc(doc(db,"users", user.uid), {
+          await setDoc(doc(db,'users', user.uid), {
             uid: user.uid,
             displayName: username,
             email,

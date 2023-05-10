@@ -29,7 +29,7 @@ export default function () {
         console.log(user);
         setLoading(false);
         toast.success("Successfull Login");
-        navigate('/checkout');
+        navigate('/dashboard/add-donasi');
       }
       catch (error){
         setLoading(false)

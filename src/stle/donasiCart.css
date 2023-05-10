@@ -11,12 +11,18 @@
     color: var(--primary-color);
     font-weight: 600;
     margin-top: 15px;
+    text-decoration: none;
+}
+
+Link {
+    text-decoration: none;
 }
 
 .donasi_card-bottom .price {
     color: var(--primary-color);
     font-size: 1.3rem;
     font-weight: 500;
+    text-decoration: none;
 }
 
 .product_card-bottom span i {
@@ -25,4 +31,8 @@
     background: var(--primary-color);
     color: white;
     border-radius: 50px;
+}
+
+ProgressBar {
+    color: black;
 }

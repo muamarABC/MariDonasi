@@ -3,41 +3,43 @@ import CommonSection from "../componen/UI/CommonSection";
 import Helmet from "../componen/Helmet/Helmet";
 import { Container, Row, Col } from "reactstrap";
 import '../stle/Donasi.css'
-import Donasi from '../assets/data/DataDonasi'
+// import Donasi from '../assets/data/DataDonasi'
 import DonasiList from "../componen/UI/DonasiList";
 import { useNavigate } from 'react-router-dom';
+import useGetData from "../custom-hooks/useGetData";
 
 const donasi = () => {
     const navigate = useNavigate();
-    const [Donasidata, setDonasiData] = useState(Donasi);
+    const {data:Donasii} = useGetData("Donasi");
+    // const [Donasidata, setDonasiData] = useState(Donasi);
+    const DonasiLain = Donasii.filter(item=> item.category=="Kebakaran"||"Banjir"||"Gempa"||"Erupsi");
 
 
     const handleFilter = (e)=>{
         const filterValue = e.target.value;
         if(filterValue=="Kebakaran"){
-            const filteredDonasi = Donasi.filter((item) => item.category == "Kebakaran");
+            const filteredDonasi = Donasii.filter((item) => item.category == "Kebakaran");
             setDonasiData(filteredDonasi);
         };
 
         if(filterValue=="Banjir"){
-            const filteredDonasi = Donasi.filter((item) => item.category == "Banjir");
+            const filteredDonasi = Donasii.filter((item) => item.category == "Banjir");
             setDonasiData(filteredDonasi);
         };
  
         if(filterValue=="Gempa"){
-            const filteredDonasi = Donasi.filter((item) => item.category == "Gempa");
+            const filteredDonasi = Donasii.filter((item) => item.category == "Gempa");
             setDonasiData(filteredDonasi);
         };
 
         if(filterValue=="Erupsi"){
-            const filteredDonasi = Donasi.filter((item) => item.category == "Erupsi");
+            const filteredDonasi = Donasii.filter((item) => item.category == "Erupsi");
             setDonasiData(filteredDonasi);
         };
 };
     const hanldeSearch = e => {
         const seacrhTerm = e.target.value
-        const seacrhDonasi = Donasi.filter(item => item.productName.toLowerCase().includes(seacrhTerm.toLowerCase()))
-
+        const seacrhDonasi = Donasii.filter(item => item.Title.toLowerCase().includes(seacrhTerm.toLowerCase()))
         setDonasiData(seacrhDonasi)
     }
 
@@ -74,7 +76,7 @@ const donasi = () => {
             <section>
                 <Container>
                     <Row>
-                        {Donasidata.length == 0? <h1>Tidak Ada Donasi</h1> : <DonasiList data={Donasidata}/>
+                        {DonasiLain.length == 0 ? <h1>Tidak Ada Donasi</h1> : <DonasiList data={DonasiLain}/>
                         }
                     </Row>
                 </Container>

@@ -1,8 +1,14 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import {Container, Row} from "reactstrap";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate, Link } from "react-router-dom";
 import UserIcon from "../../assets/images/user-icon.png";
 import './header.css';
+import { signOut, updateCurrentUser } from "firebase/auth";
+import useAuth from "../../custom-hooks/useAuth";
+import { motion } from "framer-motion";
+import { auth } from "../../../firebase.config";
+import { toast } from "react-toastify";
+import logo from '../../assets/images/logo.png'
 
 const nav_link = [
     {
@@ -13,29 +19,66 @@ const nav_link = [
         path: 'donasi',
         display: 'Donasi'
     },{
-        path: 'galangDonasi',
+        path: 'dashboard/add-donasi',
         display: 'Galang Donasi'
     },
     {
-        path: 'history',
+        path: 'histori',
         display: 'History'
     }
 ]
 
 const Header = () => {
+    const headerRef = useRef(null)
+    const menuRef = useRef(null)
+    const navigate = useNavigate();
+    const {currentUser} = useAuth();
+    const profileActionRef = useRef()
+
+    const stickyHeaderFunc = () => {
+        window.addEventListener("scroll", () => {
+            if(
+                document.body.scrollTop > 80 ||
+                document.documentElement.scrollTop > 80
+            ){
+                headerRef.current.classList.add("sticky_header");
+            }else{
+                headerRef.current.classList.remove("sticky_header");
+            }
+        })
+    };
+
+    const logout = () =>{
+        signOut(auth).then(() => {
+            toast.success("Berhasil LogOut")
+            navigate('/home')
+        }).catch(err => {
+            toast.error(err.massage)
+        })
+    }
+
+    useEffect(()=> {
+        stickyHeaderFunc();
+        return() => window.removeEventListener("scroll", stickyHeaderFunc);
+    });
+
+    const menuToggle = () => menuRef.current.classList.toggle("active_menu");
+
+    const toogleProfileActions = () => profileActionRef.current.classList.toggle("show_profileActions")
+
     return (
-    <header className="header">
+    <header className="header" ref={headerRef}>
         <Container>
             <Row>
                 <div className="nav_wrapper">
                     <div className="logo">
-                        {/* <img src={logo} alt="logo"/> */}
+                        <img src={logo} alt="logo"/>
                         <div>
                             <h1>MariDonasi</h1>
                         </div>
                     </div>
-                    <div className="navigation">
-                        <ul className="menu">
+                    <div className="navigation" ref={menuRef} onClick={menuToggle}>
+                        <motion.ul className="menu">
                             {
                                 nav_link.map((item, index)=>(
                                     <li className="nav_item" key={index}>
@@ -43,14 +86,38 @@ const Header = () => {
                                     </li>
                                 ))
                             }
-                        </ul>
+                        </motion.ul>
                     </div>
                     <div className="nav_icons">
-                        <span><img src={UserIcon} alt="logo"/></span>
+                        <div className="profile"> 
+                        <span>
+                        <motion.img 
+                        whileTap={{scale:1.2}} 
+                        src={currentUser ? currentUser.photoURL: UserIcon} 
+                        alt=""
+                        onClick={toogleProfileActions}/>
+                         <span onClick={logout}>Logout</span>
+                        <div 
+                        className="profile_actions" 
+                        ref={profileActionRef} 
+                        onClick={toogleProfileActions}>
+                            {
+                                currentUser ? (
+                                <span onClick={logout}>Logout</span> ): (<div className="d-flex align-items-center justify-content-center flex-column">
+                                    <Link to='/Regis'>Registrasi</Link>
+                                    <Link to='/Login'> Login</Link>
+                                    </div>)
+                            }
+                        </div>
+                        </span>
+                        <div className="mobile_menu">
+                        <span onClick={menuToggle}>
+                            <i class="ri-menu-line"></i></span>
+                        </div>
+                        </div>
                     </div>
-                    <div className="mobile_menu">
-                        <span><i class="ri-menu-line"></i></span>
-                    </div>
+                    
+                    
                 </div>
             </Row>
         </Container>
