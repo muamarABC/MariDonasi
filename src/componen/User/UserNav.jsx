@@ -1,12 +1,12 @@
 import React from 'react'
 import { Container, Row, Col } from 'reactstrap'
-import useAuth from '../../custom-hooks/useAuth'
+// import useAuth from '../../custom-hooks/useAuth'
 import { NavLink } from 'react-router-dom'
 import "../../stle/DonasiNav.css"
 
 const AdminNav = () => {
 
-    const {currentUser} = useAuth();
+    // const {currentUser} = useAuth();
     const user_nav = [
         {
             display: 'Home'
