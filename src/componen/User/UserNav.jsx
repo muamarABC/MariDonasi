@@ -3,7 +3,6 @@ import { Container, Row, Col } from 'reactstrap'
 import useAuth from '../../custom-hooks/useAuth'
 import { NavLink } from 'react-router-dom'
 import "../../stle/DonasiNav.css"
-import logo from '../../assets/images/logo.png'
 
 const AdminNav = () => {
 
