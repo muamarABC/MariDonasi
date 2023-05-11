@@ -15,33 +15,33 @@ const donasi = () => {
     const DonasiLain = Donasii.filter(item=> item.category=="Kebakaran"||"Banjir"||"Gempa"||"Erupsi");
 
 
-    const handleFilter = (e)=>{
-        const filterValue = e.target.value;
-        if(filterValue=="Kebakaran"){
-            const filteredDonasi = Donasii.filter((item) => item.category == "Kebakaran");
-            setDonasiData(filteredDonasi);
-        };
+//     const handleFilter = (e)=>{
+//         const filterValue = e.target.value;
+//         if(filterValue=="Kebakaran"){
+//             const filteredDonasi = Donasii.filter((item) => item.category == "Kebakaran");
+//             setDonasiData(filteredDonasi);
+//         };
 
-        if(filterValue=="Banjir"){
-            const filteredDonasi = Donasii.filter((item) => item.category == "Banjir");
-            setDonasiData(filteredDonasi);
-        };
+//         if(filterValue=="Banjir"){
+//             const filteredDonasi = Donasii.filter((item) => item.category == "Banjir");
+//             setDonasiData(filteredDonasi);
+//         };
  
-        if(filterValue=="Gempa"){
-            const filteredDonasi = Donasii.filter((item) => item.category == "Gempa");
-            setDonasiData(filteredDonasi);
-        };
+//         if(filterValue=="Gempa"){
+//             const filteredDonasi = Donasii.filter((item) => item.category == "Gempa");
+//             setDonasiData(filteredDonasi);
+//         };
 
-        if(filterValue=="Erupsi"){
-            const filteredDonasi = Donasii.filter((item) => item.category == "Erupsi");
-            setDonasiData(filteredDonasi);
-        };
-};
-    const hanldeSearch = e => {
-        const seacrhTerm = e.target.value
-        const seacrhDonasi = Donasii.filter(item => item.Title.toLowerCase().includes(seacrhTerm.toLowerCase()))
-        setDonasiData(seacrhDonasi)
-    }
+//         if(filterValue=="Erupsi"){
+//             const filteredDonasi = Donasii.filter((item) => item.category == "Erupsi");
+//             setDonasiData(filteredDonasi);
+//         };
+// };
+//     const hanldeSearch = e => {
+//         const seacrhTerm = e.target.value
+//         const seacrhDonasi = Donasii.filter(item => item.Title.toLowerCase().includes(seacrhTerm.toLowerCase()))
+//         setDonasiData(seacrhDonasi)
+//     }
 
     return (
         <Helmet title='Donasi'>
@@ -51,7 +51,8 @@ const donasi = () => {
                     <Row>
                         <Col lg='3' md='3'>
                             <div className="filter_widget">
-                                <select onChange={handleFilter}>
+                                {/* <select onChange={handleFilter}> */}
+                                    <select>
                                 <option onClick={() => navigate('/donasi')}> Berdasarkan Kategori</option>
                                     <option value="Kebakaran">Kebakaran</option>
                                     <option value="Banjir">Banjir</option>
@@ -65,7 +66,7 @@ const donasi = () => {
                                 <input 
                                 type="text" 
                                 placeholder="Cari..."
-                                onChange={hanldeSearch}
+                                // onChange={hanldeSearch}
                                 />
                                 <span><i className="ri-search-eye-line"></i></span> 
                             </div>

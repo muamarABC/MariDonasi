@@ -8,7 +8,7 @@ import useAuth from "../../custom-hooks/useAuth";
 import { motion } from "framer-motion";
 import { auth } from "../../../firebase.config";
 import { toast } from "react-toastify";
-// import logo from '../../assets/images/logo.png';
+import logo from '../../assets/images/logo.png';
 
 const nav_link = [
     {
@@ -54,7 +54,7 @@ const Header = () => {
             <Row>
                 <div className="nav_wrapper">
                     <div className="logo">
-                        {/* <img src={logo} alt="logo"/> */}
+                        <img src={logo} alt="logo"/>
                         <div>
                             <h1>MariDonasi</h1>
                         </div>

@@ -30,7 +30,6 @@ const AdminNav = () => {
         <Container>
             <div className="admin_nav-wrapper-top">
                 <div className="logo">
-                    <img src={logo}/>
                     <h2>MariDonasi</h2>
                 </div>
                 <div className="admin_navigation">
@@ -45,7 +44,6 @@ const AdminNav = () => {
                 </ul>
             </div>
                 <div className="admin_nav-top-right">
-                    {/* <img src={currentUser.photoURL} alt=''/> */}
                 </div>
             </div>
         </Container>
