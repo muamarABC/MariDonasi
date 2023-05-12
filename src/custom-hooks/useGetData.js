@@ -38,7 +38,6 @@ const useGetData = (collectionName) => {
                 setData(snapshot.docs.map(doc => ({...doc.data(), id: doc.id })));
                 setLoading(false);
             })
-
         };
         getData();
     }, []);

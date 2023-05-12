@@ -14,19 +14,21 @@ import { toast } from "react-toastify";
 import { motion } from "framer-motion";
 import { db } from "../../firebase.config";
 import { storage} from '../../firebase.config';
-import {doc, getDoc} from 'firebase/firestore'
+import {doc, getDoc, collection, updateDoc, addDoc} from 'firebase/firestore'
 import { uploadBytesResumable, ref,getDownloadURL  } from 'firebase/storage';
-import { collection, addDoc } from 'firebase/firestore';
 import useGetData from "../custom-hooks/useGetData";
 import BCA from '../assets/images/BCA.png'
 import Mandiri from '../assets/images/mandiri.png'
 import BSI from '../assets/images/BSI.png'
 import ProgressBar from 'react-bootstrap/ProgressBar';
+import { useNavigate } from "react-router-dom";
+import Button from 'react-bootstrap/Button'
 
 
 const Detail = () => {
     const {id} = useParams()
     // const Donasi = Donasii.find(item=> item.id === id);
+    const navigate = useNavigate()
 
     const reviewMsg = useRef('');
     const reviewDons = useRef(null)
@@ -34,14 +36,22 @@ const Detail = () => {
     const dispatch = useDispatch();
     const [donasi, setDonasi] = useState({})
     const {data:Donasi} = useGetData("Donasi")
+    const collectionRef = collection(db,'Donasi')
+    const [DonasiData, setDonasiData] = useState([])
+    const collectionRefDonIn = collection(db,'DataDonasi')
+    const [DonIn, setDonIn] = useState([])
 
     const [enterNama, setEnterNama] = useState('');
     const [enterJlhDonasi, setEnterJlhDonasi] = useState('');
     const [enterKeterangan, setEnterKeterangan] = useState('');
     const [enterBuktiImg, setEnterBuktiImg] = useState(null);
+    const [Donate, setDonate] =useState([]);
+    const [DataDonate, setDataDonate] =useState([])
+
+    const [enterUpdateDonasi, setEnterUpdateDonasi] = useState('')
 
     const docRef = doc(db, 'Donasi', id);
-    const now = 60;
+    const now = 50;
 
     // const tambahDonasi = async e =>{
     //     e.preventDefault()
@@ -51,18 +61,91 @@ const Detail = () => {
     //     }catch{
 
     //     }
+    // // }
+    // const getDonasiAwal = async () =>{
+    //     await getDoc(collectionRef).then((Donasi)=>{
+    //         let DonasiDatas = Donasi.docs.map((doc)=> ({...doc.data(), id: doc.id}))
+    //         setDonasiData(DonasiDatas)
+    //     }).catch((err)=>{
+    //         console.log(err)
+    //     })
     // }
-    const hitung = {
 
-    }
+    // const getDonasiIn = async () =>{
+    //     await getDoc(collectionRefDonIn).then((DataDonasi)=>{
+    //         let DataDonasiIn = DataDonasi.docs.map((doc)=> ({...doc.data(), id: doc.id}))
+    //         setDonIn(DataDonasiIn)
+    //     }).catch((err)=>{
+    //         console.log(err)
+    //     })
+    // }
+
+    // const updateDonasiIn = async (idDonasi)=>{
+    //     const DonasiDocument = doc(db, "Donasi", idDonasi)
+    //     let oldDonasi = ""
+    //     DonasiData.map(({id, DonasiAwal}) => {
+    //         console.log("ID Donasi", id)
+    //         if(id === idDonasi){
+    //             oldDonasi = DonasiAwal;
+    //         }
+    //         return null;
+    //     });
+    //     try {
+    //         console.log("asd", oldDonasi)
+    //         let DonasiAwals = parseInt(enterJlhDonasi) + parseInt(oldDonasi)
+    //         await updateDoc(DonasiDocument,{
+    //             DonasiAwal: DonasiAwals
+    //         })
+    //     }catch(err){
+    //         console.log(err)
+    //     }
+    //     getDonasiAwal()
+    // }
+
+    // const getDonasi = async () => {
+    //     await getDoc(collectionRef).then( (Donasi) =>{
+    //       let DonasiData = Donasi.docs.map((doc) => ({...doc.data(), id: doc.id}))
+    //       setDonate(DonasiData)
+    //     }).catch((err) => {
+    //         console.log(err)
+    //     })
+    //   }
+
+    //   const getDataDonasi = async () => {
+    //     await getDoc(collectionRefDonIn).then( (DataDonasi) =>{
+    //       let DonasiDatas = DataDonasi.docs.map((doc) => ({...doc.data(), id: doc.id}))
+    //       setDataDonate(DonasiDatas)
+    //     }).catch((err) => {
+    //         console.log(err)
+    //     })
+    //   }
+
+    const updateDonasi = async (idDonasi) => {
+        const DonasiDocument = doc(db,"Donasi",idDonasi)
+        let old = ""
+        Donasi.map(({id, DonasiAwal}) => {
+            console.log("ID Donasi", id)
+            if(id === idDonasi){
+                old = DonasiAwal
+            }
+        })
+        try{
+            console.log("asmui",old)
+            let stok = parseInt(enterUpdateDonasi) + parseInt(old)
+          await updateDoc(DonasiDocument, {
+            DonasiAwal: stok,
+          })
+        }catch (err) {
+          console.log(err)
+        }
+      }
     
-    const tambahDonasi = async e =>{
-        e.preventDefault()
+    const tambahDonasi = async () =>{
         try{
             const docRef = await collection(db, 'DataDonasi')
             const storageRef =  ref(storage, `BuktiDonasiImages/${Date.now() + enterBuktiImg.name}`);
             const uploadTask = uploadBytesResumable(storageRef, enterBuktiImg);
-
+        
             uploadTask.on(() => {
             toast.error('images not uploaded!');
             }, 
@@ -76,20 +159,15 @@ const Detail = () => {
                     });
                 });
                 toast.success("Donasi Berhasil ditambahkan");
-                navigate('/dashboard/all-donasi');
+                navigate('/histori');
             });
+            // getDataDonasi()
         }
         catch(err){
             toast.error("Donasi Tidak Terupload")
-        };
-    };
-
-    const UpdateDonasi = async (id) =>{
-        const DonasiDC = doc(dc, "Donasi", id)
-        let DonasiLama =""
-
+        }
     }
-   
+
     useEffect(()=> {
         const getDOnasi = async()=>{
             const docSnap = await getDoc(docRef)
@@ -100,6 +178,7 @@ const Detail = () => {
             }
         }
         getDOnasi()
+        // getDataDonasi()
     },[Donasi])
 
     const {
@@ -111,23 +190,7 @@ const Detail = () => {
         category
     } = donasi;
 
-    const DonasiLain = Donasi.filter(item=> item.category===category);
-
-    // const submitHandler = (e) => {
-    //     e.preventDefault()
-    //     const reviewUserName = reviewUser.current.value
-    //     const reviewUserMsg = reviewMsg.current.value
-    //     const reviewDonasi = reviewDons.current.value
-    //     const reviewOBJ = {
-    //         userName: reviewUser,
-    //         Dons: reviewDonasi,
-    //         text: reviewUserMsg
-    //     }
-
-    //     console.log(reviewOBJ)
-    //     toast.success("Donasi Masuk")
-
-    // };
+    const DonasiLain = Donasi.filter(item=> item.category===category)
 
     return (
     <Helmet title={Title}>
@@ -146,9 +209,6 @@ const Detail = () => {
                             <ProgressBar now={now} label={`${now}%`}  />
                             <span className="price">Terkumpul Dari Rp.{JlhDonasi}</span>
                             <p>Kategori: {category}</p>
-                            {/* <p>{shortDesc}</p> */}
-
-                            {/* <button className="don_btn" onSubmit={submitHandler}>Donasi</button> */}
                         </Col>
                     </Row>
                 </Container>
@@ -180,7 +240,13 @@ const Detail = () => {
                                 </div>
                                 <div className="review_form">
                                     <h4>Donasi</h4>
-                                    <form action="" onSubmit={tambahDonasi} className="action">
+                                    <form action="" 
+                                    onSubmit={() =>
+                                        {
+                                        tambahDonasi()
+                                        updateDonasi(id)
+                                    }
+                                    } className="action">
                                         <div className="form_group">
                                             <label>Nama</label>
                                             <input type="text" placeholder="Masukkan Nama" 
@@ -191,7 +257,10 @@ const Detail = () => {
                                             <label>Jumlah Donasi Yang Ingin Disumbangkan</label>
                                             <input type="number" placeholder="Jumlah Donasi" 
                                             value={enterJlhDonasi}
-                                            onChange={e=> setEnterJlhDonasi(e.target.value)}/>
+                                            onChange={e=> {
+                                                setEnterUpdateDonasi(e.target.value)
+                                                setEnterJlhDonasi(e.target.value)
+                                            }}/>
                                         </div>
                                         <div className="form_group" rows={4}>
                                         <label>Keterangan</label>
@@ -206,7 +275,11 @@ const Detail = () => {
                                             onChange={e=> setEnterBuktiImg(e.target.files[0])}/>
                                             
                                         </div>
-                                        <motion.button whileTap={{scale:1.2}} style={{marginTop:20}}type="submit" className="don_btn" onSubmit={tambahDonasi}>Donasi</motion.button>
+                                        <motion.button whileTap={{scale:1.2}} style={{marginTop:20}}type="submit" className="don_btn" onSubmit={() =>
+                                           { tambahDonasi()
+                                            updateDonasi(id)}
+                                        }>Donasi</motion.button>
+                                        {/* <Button type="submit" variant="primary" onSubmit={updateDonasi(id)}>Save Changes</Button> */}
                                     </form>
                                 </div>
                             </div>

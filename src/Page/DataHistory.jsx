@@ -8,7 +8,6 @@ import { toast } from 'react-toastify'
 
 const AllDonasi = () => {
   const {data:DataInput, Loading} = useGetData('DataDonasi');
-  const no = 1
 
 
   return (
