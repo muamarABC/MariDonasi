@@ -22,6 +22,7 @@ const AllDonasi = () => {
   const [updateTitle, setupdateTitle] = useState('');
   const [updateKategoriDonasi, setupdateKategoriDonasi] = useState('');
   const [updateDeskripsi, setupdateDeskripsi] = useState('');
+  
 
   const [idUpdated, setIdUpdated] = useState("")
 

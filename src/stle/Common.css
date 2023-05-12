@@ -1,10 +1,16 @@
 .common_section {
     background: linear-gradient(rgba(0, 0, 0, 0.562), rgba(0, 0, 0, 0.562)), url("../assets/images/Donasi.jpg") no-repeat center center;
     background-size: cover;
-    height: 350px;
+    height: 150px;
 }
 
 .common_section h1 {
     color: white;
     font-weight: 600;
+}
+
+@media only screen and (max-width:768px) {
+    .common_section {
+        padding: 60px 0px;
+    }
 }

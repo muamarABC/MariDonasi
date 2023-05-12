@@ -56,7 +56,7 @@ const AddDonasi = () => {
             <Container>
                 <Row>
                     <Col lg="12">
-                        <h4 className='mb-5'> Add Donasi</h4>
+                        <h4 className='mb-5'> Tambah Donasi</h4>
                         <Form onSubmit={addDonasi}>
                             <FormGroup className='form_group'>
                                 <span>Judul Donasi</span>

@@ -14,7 +14,6 @@ const donasi = () => {
     const [Donasidata, setDonasiData] = useState(Donasii);
     // const DonasiLain = Donasii.filter(item=> item.category=="Kebakaran"||"Banjir"||"Gempa"||"Erupsi");
 
-
     const handleFilter = (e)=>{
         const filterValue = e.target.value;
         if(filterValue=="Kebakaran"){
@@ -49,10 +48,9 @@ const donasi = () => {
             <section>
                 <Container>
                     <Row>
-                        <Col lg='3' md='3'>
+                        <Col lg='3' md='6'>
                             <div className="filter_widget">
                                 <select onChange={handleFilter}>
-                                    
                                 <option onClick={() => navigate('/donasi')}> Berdasarkan Kategori</option>
                                     <option value="Kebakaran">Kebakaran</option>
                                     <option value="Banjir">Banjir</option>
