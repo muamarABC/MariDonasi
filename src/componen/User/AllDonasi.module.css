@@ -1,0 +1,24 @@
+.table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.table th,
+.table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+.table thead {
+    background-color: lightblue;
+}
+
+.buttonContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+.buttonContainer button {
+    color: white;
+    margin-bottom: 8px;
+}
